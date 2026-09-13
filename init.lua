@@ -372,6 +372,7 @@ do
       { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
       { '<leader>t', group = '[T]oggle' },
       { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
+      { '<leader>a', group = '[A]I Actions', mode = { 'n', 'v' } },
       { 'gr', group = 'LSP Actions', mode = { 'n' } },
     },
   }
@@ -696,6 +697,7 @@ do
     -- gopls = {},
     -- pyright = {},
     rust_analyzer = {},
+    wgsl_analyzer = {},
     svelte = {},
     --
     -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -801,7 +803,8 @@ do
     },
     -- You can also specify external formatters in here.
     formatters_by_ft = {
-      -- rust = { 'rustfmt' },
+      rust = { 'rustfmt' },
+      toml = { 'taplo' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --
@@ -914,8 +917,24 @@ do
   vim.pack.add { { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' } }
 
   -- Ensure basic parsers are installed
-  local parsers =
-    { 'bash', 'c', 'diff', 'html', 'javascript', 'svelte', 'css', 'typescript', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+  local parsers = {
+    'bash',
+    'c',
+    'diff',
+    'html',
+    'javascript',
+    'svelte',
+    'css',
+    'typescript',
+    'lua',
+    'luadoc',
+    'markdown',
+    'markdown_inline',
+    'query',
+    'vim',
+    'vimdoc',
+    'wgsl',
+  }
   require('nvim-treesitter').install(parsers)
 
   ---@param buf integer
