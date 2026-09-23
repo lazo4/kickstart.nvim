@@ -1,10 +1,20 @@
 vim.pack.add { 'https://github.com/olimorris/codecompanion.nvim' }
 
 require('codecompanion').setup {
+  display = {
+    chat = {
+      -- show_settings = true,
+    },
+  },
+  adapters = {
+    http = {
+      ollama_no_think = function() return require('codecompanion.adapters').extend('ollama', { schema = { think = { default = false } } }) end,
+    },
+  },
   interactions = {
     chat = {
       adapter = {
-        name = 'ollama',
+        name = 'ollama_no_think',
         model = 'qwen3.5-8k:2b',
       },
       tools = {
@@ -67,3 +77,4 @@ require('codecompanion').setup {
 }
 
 vim.keymap.set('n', '<leader>cc', '<cmd>CodeCompanionChat<cr>', { desc = '[C]odeCompanion [C]hat' })
+vim.keymap.set('n', '<leader>ca', '<cmd>CodeCompanionActions<cr>', { desc = '[C]odeCompanion [A]ctions' })

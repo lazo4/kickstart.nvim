@@ -700,6 +700,19 @@ do
     rust_analyzer = {},
     wgsl_analyzer = {},
     svelte = {},
+    basedpyright = {
+      analysis = {
+        -- Defer linting/fixing to Ruff
+        ignore = { '*' },
+        typeCheckingMode = 'standard', -- options: off, basic, standard, strict
+      },
+    },
+    ruff = {
+      on_attach = function(client, bufnr)
+        -- Disable hover in favor of Pyright's cleaner documentation hover
+        client.server_capabilities.hoverProvider = false
+      end,
+    },
     --
     -- Some languages (like typescript) have entire language plugins that can be useful:
     --    https://github.com/pmizio/typescript-tools.nvim
@@ -811,7 +824,9 @@ do
       --
       -- You can use 'stop_after_first' to run the first available formatter from the list
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      python = { 'ruff_format' },
       svelte = { 'prettier' },
+      json = { 'prettier' },
       typescript = { 'prettier' },
       javascript = { 'prettier' },
       html = { 'prettier' },
