@@ -700,19 +700,7 @@ do
     rust_analyzer = {},
     wgsl_analyzer = {},
     svelte = {},
-    basedpyright = {
-      analysis = {
-        -- Defer linting/fixing to Ruff
-        ignore = { '*' },
-        typeCheckingMode = 'standard', -- options: off, basic, standard, strict
-      },
-    },
-    ruff = {
-      on_attach = function(client, bufnr)
-        -- Disable hover in favor of Pyright's cleaner documentation hover
-        client.server_capabilities.hoverProvider = false
-      end,
-    },
+    ruff = {},
     --
     -- Some languages (like typescript) have entire language plugins that can be useful:
     --    https://github.com/pmizio/typescript-tools.nvim
@@ -931,6 +919,14 @@ do
 
   -- NOTE: You can also specify a branch or a specific commit
   vim.pack.add { { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' } }
+
+  vim.filetype.add {
+    extension = {
+      jsonl = 'jsonl',
+    },
+  }
+
+  vim.treesitter.language.register('json', { 'jsonl' })
 
   -- Ensure basic parsers are installed
   local parsers = {
