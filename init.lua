@@ -698,7 +698,6 @@ do
     -- gopls = {},
     -- pyright = {},
     rust_analyzer = {},
-    wgsl_analyzer = {},
     svelte = {},
     basedpyright = {
       analysis = {
@@ -789,6 +788,11 @@ do
     vim.lsp.config(name, server)
     vim.lsp.enable(name)
   end
+
+  vim.lsp.config('wgsl_analyzer', {
+    cmd = { os.getenv 'HOME' .. '/.cargo/bin/wgsl-analyzer' },
+  })
+  vim.lsp.enable 'wgsl_analyzer'
 end
 
 -- ============================================================
